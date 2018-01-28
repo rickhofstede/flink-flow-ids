@@ -33,13 +33,16 @@ public class FlowIDSJobTest extends StreamingMultipleProgramsTestBase {
         env.setParallelism(1);
 
         /* Clear output sink */
-        FlowSink.values.clear();
+        // FlowSink.values.clear();
+        TestSink sink = new TestSink();
 
         /* Process input data */
-        env.fromElements(FlowDataSet.DATA).addSink(new FlowSink());
+        // env.fromElements(FlowDataSet.DATA).addSink(new FlowSink());
+        env.fromElements(FlowDataSet.DATA).addSink(sink);
         env.execute();
 
-        assertEquals(50, FlowSink.values.size());
+        // assertEquals(50, FlowSink.values.size());
+        assertEquals(50, sink.values.size());
     }
 
     @Test
